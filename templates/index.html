@@ -50,6 +50,7 @@
         border: 1px solid #ccc;
         border-radius: 5px;
         padding: 10px;
+        resize: vertical;
       }
 
       #image-upload {
@@ -136,19 +137,20 @@
     <div class="chat-container">
       <h1>IC-PBL REAL WORLD CHALLENGE 🚀</h1>
       <form id="chat-form">
-        <input
+        <!-- <input
           type="text"
           id="user-input"
           name="user_input"
           placeholder="질문을 입력하세요..."
-        />
-        <input
+        /> -->
+        <textarea id="user-input" name="user_input" placeholder="질문을 입력하세요..." rows="1"></textarea>
+        <!-- <input
           type="file"
           id="image-upload"
           name="image_upload"
           accept="image/*"
         />
-        <img id="uploaded-image" style="display: none;" />
+        <img id="uploaded-image" style="display: none;" /> -->
         <button type="submit" id="submitBtn">Send</button>
       </form>
       <div id="result">
@@ -162,27 +164,33 @@
       <!-- 변경된 부분: iframe 대신 embed 사용 -->
       <div id="python-tutor-embed-container"></div>
     </div>
+      <div id="madeByText" style="text-align: center; color: #777; position: fixed; bottom: 0; width: 100%; font-size: 12px; display: none; margin-bottom: 20px;"> Made by sinobin</div>
     <script>
       window.onload = function () {
         const form = document.getElementById("chat-form");
         const userInputField = document.getElementById("user-input");
-        const imageUploadField = document.getElementById("image-upload");
+        //const imageUploadField = document.getElementById("image-upload");
         const loadingDiv = document.getElementById("loading");
         const descriptionDiv = document.getElementById("description");
         const embedContainer = document.getElementById("python-tutor-embed-container");
-        const uploadedImage = document.getElementById("uploaded-image");
+        //const uploadedImage = document.getElementById("uploaded-image");
         const copyCodeBtn = document.getElementById("copyCodeBtn");
+        const madeByText = document.getElementById("madeByText");
 
+        userInputField.addEventListener("input", function () {
+            const lines = this.value.split('\n').length;
+            this.rows = lines
+        });
         form.addEventListener("submit", function (event) {
           event.preventDefault();
           const userInput = userInputField.value;
-          const imageFile = imageUploadField.files[0]; // 변경된 부분: 파일 가져오기
+          //const imageFile = imageUploadField.files[0]; // 변경된 부분: 파일 가져오기
 
           const formData = new FormData();
           formData.append("user_input", userInput);
-          if (imageFile) {
-            formData.append("image_upload", imageFile);
-          }
+          // if (imageFile) {
+          //   formData.append("image_upload", imageFile);
+          // }
 
           loadingDiv.style.display = "block";
 
@@ -211,12 +219,12 @@
               }
 
               // 변경된 부분: 업로드된 이미지 표시
-              if (data.uploaded_image) {
-                uploadedImage.src = data.uploaded_image;
-                uploadedImage.style.display = "block";
-              } else {
-                uploadedImage.style.display = "none";
-              }
+              // if (data.uploaded_image) {
+              //   uploadedImage.src = data.uploaded_image;
+              //   uploadedImage.style.display = "block";
+              // } else {
+              //   uploadedImage.style.display = "none";
+              // }
 
               // 변경된 부분: 코드 복사하기 버튼 표시 및 클릭 이벤트 추가
               copyCodeBtn.style.display = "block";
@@ -243,23 +251,25 @@
         });
           
           // 이미지 업로드 처리
-        imageUploadField.addEventListener("change", function (event) {
-          const file = event.target.files[0];
+        // imageUploadField.addEventListener("change", function (event) {
+        //   const file = event.target.files[0];
 
-          if (file) {
-            const reader = new FileReader();
+        //   if (file) {
+        //     const reader = new FileReader();
 
-            reader.onload = function (e) {
-              uploadedImage.src = e.target.result;
-              uploadedImage.style.display = "block";
-            };
+        //     reader.onload = function (e) {
+        //       uploadedImage.src = e.target.result;
+        //       uploadedImage.style.display = "block";
+        //     };
 
-            reader.readAsDataURL(file);
-          }
-        });
+        //     reader.readAsDataURL(file);
+        //   }
+        // });
+          madeByText.style.display = "block";
       };
     </script>
   </body>
 </html>
+
 
 
