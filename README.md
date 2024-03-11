@@ -1,4 +1,4 @@
-## Chess Tutor
+## Chess Tutor Using OpenAI API GPT 3.5
 
 Paper subtitle: Development of web-based computer engineering education program
 
